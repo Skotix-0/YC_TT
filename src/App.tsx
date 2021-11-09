@@ -1,24 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import './App.scss';
+import Render_table from './components/Render_table';
 
 function App() {
+  interface ITableData{
+    number_statement : number,
+    date_statement : Date,
+    name_company: string,
+    fio_transporter: string,
+    phone_number_transporter: string,
+    commit: string,
+    ati_code: string
+  }
+
+  const [table_data, setTableData] = useState([
+    {
+      number_statement: 1,
+      date_statement: "Tue Nov 09 2021 16:15:34",
+      name_company: "Test",
+      fio_transporter: "VV PUTIN",
+      phone_number_transporter: "880005553535",
+      commit: "привези чтоб было норм",
+      ati_code: "https://ati.su/firms/12345/info"
+    },
+  ]);
+
+  const add_new_statement = (props: any) =>{
+    props.preventDefault();
+    console.log(props.target.elements.name_company.value);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Render_table table_arr = {table_data} ANS = {add_new_statement} />
     </div>
   );
 }
