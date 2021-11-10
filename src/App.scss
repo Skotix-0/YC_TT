@@ -1,6 +1,8 @@
 .table {
     text-align: center;
     overflow-wrap: break-word;
+    width: 100%;
+
     th {
         font-size: 13px;
         font-weight: normal;
@@ -11,13 +13,41 @@
         padding: 8px;
     }
     td {
-    background: #e8edff;
-    border-bottom: 1px solid white;
-    color: #669;
-    border-top: 1px solid transparent;
-    padding: 8px;
+        background: #e8edff;
+        border-bottom: 1px solid white;
+        color: #669;
+        border-top: 1px solid transparent;
+        padding: 8px;
     }
     tr:hover td {
-    background: #ccddff;
+        background: #ccddff;
+    }
+
+    .ADM_table{
+        border: none;
+        background: none;
+    }
+}
+
+
+#form_add_statement{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+
+    background: #e8edff;
+        border-bottom: 1px solid white;
+        color: #669;
+        border-top: 1px solid transparent;
+        padding: 8px;
+
+    .form_input_div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 }
