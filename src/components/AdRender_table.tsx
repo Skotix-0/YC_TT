@@ -41,7 +41,7 @@ export default function AdRender_table(props: any) {
     
     return (
         <div>
-            <span>Всего заявок: {props.table_arr.length}</span>
+            <span>Всего заявок: {props.table_arr.filter((v: any, i:number) => v !== undefined).length}</span>
             <button onClick={()=>{props.ADM(false)}}>Admin Mode Off</button>
             <form id="form_add_statement" onSubmit={props.ANS}>
                 {
@@ -66,59 +66,61 @@ export default function AdRender_table(props: any) {
                     </tr>
                     {
                         props.table_arr.map((elem:any, key: number)=>{
-                        return <tr key={key} id={"ADM_table"+elem.number_statement} ref={(input) => {Progress[elem.number_statement] = input }}>
-                                <td><input className="ADM_tableId" defaultValue={elem.number_statement} readOnly /></td>
-                                <td><input className="ADM_table" defaultValue={elem.date_statement} readOnly /></td>
-                                <td><input className="ADM_table" defaultValue={elem.name_company} readOnly /></td>
-                                <td><input className="ADM_table" defaultValue={elem.fio_transporter} readOnly /></td>
-                                <td><input className="ADM_table" defaultValue={elem.phone_number_transporter} readOnly /></td>
-                                <td><input className="ADM_table" defaultValue={elem.commit} readOnly /></td>
-                                <td><input className="ADM_table" defaultValue={elem.ati_code} readOnly /></td>
-                                <td>
-                                    <div id={'Tool_'+elem.number_statement}>
-                                        <button onClick={()=>{
-                                            props.Del(key);
-                                        }}>Del</button>
-                                        <button onClick={()=>{
-                                            EditRow(elem.number_statement);
-                                        }}>Edit</button>
-                                    </div>
-                                    <div id={"Save_"+elem.number_statement}>
-                                        <button onClick={()=>{
-                                            let child_array = [...Progress[elem.number_statement].children].map((elem: any) =>{
-                                                return [...elem.children];
-                                            });
-                                    
-                                            let arr_value = child_array.map((elem: any) =>{
-                                                if(elem[0].classList.contains("ADM_table")){
-                                                    return elem[0].value;
-                                                }
-                                                return true;
-                                            });
-
-                                            let newObj = {
-                                                date_statement: arr_value[1],
-                                                name_company: arr_value[2],
-                                                fio_transporter: arr_value[3],
-                                                phone_number_transporter: arr_value[4],
-                                                commit: arr_value[5],
-                                                ati_code: arr_value[6],
-                                            }
-
-                                            child_array.map((elem: any) =>{
-                                                if(elem[0].classList.contains("ADM_table")){
-                                                    elem[0].style.border = "none";
-                                                    elem[0].style.background = 'none';
-                                                    elem[0].setAttribute('readOnly','readOnly');
-                                                }
-                                                return true;
-                                            });
+                            if(elem !== undefined){
+                                return <tr key={key} id={"ADM_table"+elem.number_statement} ref={(input) => {Progress[elem.number_statement] = input }}>
+                                        <td><input className="ADM_tableId" defaultValue={elem.number_statement} readOnly /></td>
+                                        <td><input className="ADM_table" defaultValue={elem.date_statement} readOnly /></td>
+                                        <td><input className="ADM_table" defaultValue={elem.name_company} readOnly /></td>
+                                        <td><input className="ADM_table" defaultValue={elem.fio_transporter} readOnly /></td>
+                                        <td><input className="ADM_table" defaultValue={elem.phone_number_transporter} readOnly /></td>
+                                        <td><input className="ADM_table" defaultValue={elem.commit} readOnly /></td>
+                                        <td><input className="ADM_table" defaultValue={elem.ati_code} readOnly /></td>
+                                        <td>
+                                            <div id={'Tool_'+elem.number_statement}>
+                                                <button onClick={()=>{
+                                                    props.Del(key);
+                                                }}>Del</button>
+                                                <button onClick={()=>{
+                                                    EditRow(elem.number_statement);
+                                                }}>Edit</button>
+                                            </div>
+                                            <div id={"Save_"+elem.number_statement}>
+                                                <button onClick={()=>{
+                                                    let child_array = [...Progress[elem.number_statement].children].map((elem: any) =>{
+                                                        return [...elem.children];
+                                                    });
                                             
-                                            props.SES({Obj:newObj, id: elem.number_statement-1});
-                                        }}>Save</button>
-                                    </div>
-                                </td>
-                            </tr>;
+                                                    let arr_value = child_array.map((elem: any) =>{
+                                                        if(elem[0].classList.contains("ADM_table")){
+                                                            return elem[0].value;
+                                                        }
+                                                        return true;
+                                                    });
+
+                                                    let newObj = {
+                                                        date_statement: arr_value[1],
+                                                        name_company: arr_value[2],
+                                                        fio_transporter: arr_value[3],
+                                                        phone_number_transporter: arr_value[4],
+                                                        commit: arr_value[5],
+                                                        ati_code: arr_value[6],
+                                                    }
+
+                                                    child_array.map((elem: any) =>{
+                                                        if(elem[0].classList.contains("ADM_table")){
+                                                            elem[0].style.border = "none";
+                                                            elem[0].style.background = 'none';
+                                                            elem[0].setAttribute('readOnly','readOnly');
+                                                        }
+                                                        return true;
+                                                    });
+                                                    
+                                                    props.SES({Obj:newObj, id: elem.number_statement-1});
+                                                }}>Save</button>
+                                            </div>
+                                        </td>
+                                    </tr>;
+                            }
                         })
                     }
                 </tbody>

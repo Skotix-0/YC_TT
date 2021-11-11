@@ -64,7 +64,7 @@ function App() {
   }
 
   const DeleteStatement = (props:any):void =>{
-    table_data.splice(props, 1)
+    delete table_data[props];
     setTableData([...table_data]);
   }
 
