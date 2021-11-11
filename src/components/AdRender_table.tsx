@@ -4,6 +4,7 @@ export default function AdRender_table(props: any) {
 
     const statement_info_form: object[] = [
         {title: "Дата получения заявки от клиента", type: "date", name: "date_statement"},
+        {title: "Время получения заявки от клиента", type: "time", name: "time_statement"},
         {title: "Название фирмы клиента", type: "text", name: "name_company"},
         {title: "ФИО перевозчика", type: "text", name: "fio_transporter"},
         {title: "Телефон перевозчика", type: "text", name: "phone_number_transporter"},
@@ -41,9 +42,8 @@ export default function AdRender_table(props: any) {
     
     return (
         <div>
-            <span>Всего заявок: {props.table_arr.filter((v: any, i:number) => v !== undefined).length}</span>
-            <button onClick={()=>{props.ADM(false)}}>Admin Mode Off</button>
             <form id="form_add_statement" onSubmit={props.ANS}>
+                <span id="titel_form_add">Добавить заявку</span>
                 {
                     statement_info_form.map((elem: any, key: number)=>{
                         return <div key={elem.title} className="form_input_div">
@@ -52,11 +52,15 @@ export default function AdRender_table(props: any) {
                             </div>;
                     })
                 }
-                <button type="submit">Submit</button>
+                <button type="submit" className="button_style">Добавить</button>
             </form>
 
             <table className="table">
                 <tbody>
+                    <tr id="NotHoverTr">
+                        <td><span>Всего заявок: {props.table_arr.filter((v: any, i:number) => v !== undefined).length}</span></td>
+                        <td className="AdMode" onClick={()=>{props.ADM(false)}}><span>Admin Mode Off</span></td>
+                    </tr>
                     <tr>
                         {
                             statement_info.map((elem: any)=>{
@@ -77,15 +81,15 @@ export default function AdRender_table(props: any) {
                                         <td><input className="ADM_table" defaultValue={elem.ati_code} readOnly /></td>
                                         <td>
                                             <div id={'Tool_'+elem.number_statement}>
-                                                <button onClick={()=>{
+                                                <button className="button_style_table_form" onClick={()=>{
                                                     props.Del(key);
                                                 }}>Del</button>
-                                                <button onClick={()=>{
+                                                <button className="button_style_table_form" onClick={()=>{
                                                     EditRow(elem.number_statement);
                                                 }}>Edit</button>
                                             </div>
                                             <div id={"Save_"+elem.number_statement}>
-                                                <button onClick={()=>{
+                                                <button className="button_style_table_form" onClick={()=>{
                                                     let child_array = [...Progress[elem.number_statement].children].map((elem: any) =>{
                                                         return [...elem.children];
                                                     });
@@ -96,7 +100,7 @@ export default function AdRender_table(props: any) {
                                                         }
                                                         return true;
                                                     });
-
+                                                    // console.log(arr_value);
                                                     let newObj = {
                                                         date_statement: arr_value[1],
                                                         name_company: arr_value[2],
@@ -115,12 +119,13 @@ export default function AdRender_table(props: any) {
                                                         return true;
                                                     });
                                                     
-                                                    props.SES({Obj:newObj, id: elem.number_statement-1});
+                                                    props.SES({Obj:newObj, id: key});
                                                 }}>Save</button>
                                             </div>
                                         </td>
                                     </tr>;
                             }
+                            return true;
                         })
                     }
                 </tbody>

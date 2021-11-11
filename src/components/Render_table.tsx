@@ -12,10 +12,12 @@ export default function Render_table(props:any) {
 
     return (
         <div>
-            <span>Всего заявок: {props.table_arr.filter((v: any, i:number) => v !== undefined).length}</span>
-            <button onClick={()=>{props.ADM(true)}}>Admin Mode On</button>
             <table className="table">
                 <tbody>
+                    <tr id="NotHoverTr">
+                        <td><span>Всего заявок: {props.table_arr.filter((v: any, i:number) => v !== undefined).length}</span></td>
+                        <td className="AdMode" onClick={()=>{props.ADM(true)}}><span>Admin Mode On</span></td>
+                    </tr>
                     <tr>
                         {
                             statement_info.map((elem: any)=>{
@@ -36,7 +38,9 @@ export default function Render_table(props:any) {
                                         <td><a href={"https://ati.su/firms/"+elem.ati_code+"/info"} rel="noreferrer" target="_blank">{"https://ati.su/firms/"+elem.ati_code+"/info"}</a></td>
                                     </tr>;
                                 }
+                                return true;
                             }
+                            
                         )
                         
                     }

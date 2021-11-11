@@ -15,17 +15,7 @@ function App() {
     ati_code: string
   }
 
-  const [table_data, setTableData]: any[] = useState([
-    // {
-    //   number_statement: 1,
-    //   date_statement: "Tue Nov 09 2021 16:15:34",
-    //   name_company: "Test",
-    //   fio_transporter: "VV PUTIN",
-    //   phone_number_transporter: "880005553535",
-    //   commit: "фыв",
-    //   ati_code: "12345"
-    // }
-  ]);
+  const [table_data, setTableData]: any[] = useState([]);
 
   const [ADM_value, setADM_value] = useState(false);
 
@@ -34,10 +24,10 @@ function App() {
 
     let newObj:ITableData;
 
-    if(table_data.length <= 0){
+    if(table_data.filter((v: any, i:number) => v !== undefined).length <= 0){
       newObj= {
         number_statement: 1,
-        date_statement: `${props.target.elements.date_statement.value}`,
+        date_statement: `${props.target.elements.date_statement.value +" "+props.target.elements.time_statement.value}`,
         name_company: `${props.target.elements.name_company.value}`,
         fio_transporter: `${props.target.elements.fio_transporter.value}`,
         phone_number_transporter: `${props.target.elements.phone_number_transporter.value}`,
@@ -47,7 +37,7 @@ function App() {
     }else{
       newObj = {
         number_statement: table_data[table_data.length - 1].number_statement + 1,
-        date_statement: `${props.target.elements.date_statement.value}`,
+        date_statement: `${props.target.elements.date_statement.value +" "+props.target.elements.time_statement.value}`,
         name_company: `${props.target.elements.name_company.value}`,
         fio_transporter: `${props.target.elements.fio_transporter.value}`,
         phone_number_transporter: `${props.target.elements.phone_number_transporter.value}`,

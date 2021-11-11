@@ -32,6 +32,20 @@
         background: none;
         outline: none;
     }
+    #NotHoverTr{
+        background: #e8edff;
+        &:hover td{
+            background: none;
+        }
+
+        .AdMode{
+            cursor: pointer;
+            background: #e8edff;
+            &:hover{
+                background: #ccddff;
+            }
+        }
+    }
 }
 
 
@@ -53,5 +67,38 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+
+    #titel_form_add{
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+}
+
+.button_style{
+    line-height: 20px;
+    padding: 10px 20px;
+    background-color: #a3c1ff;
+    color: black;
+    text-align: center;
+    z-index: 2;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.button_style_table_form{
+    line-height: 20px;
+    background-color: #a3c1ff;
+    color: black;
+    text-align: center;
+    z-index: 2;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: all .5s;
+
+    &:hover{
+        background: #5689f1;
     }
 }
